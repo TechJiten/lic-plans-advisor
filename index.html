@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIC Plans - Insurance Advisor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        
+        header {
+            background: linear-gradient(45deg, #1e90ff, #ffd700);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            border-bottom: 2px solid #ccc;
+        }
+
+        header h1 {
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        header h3 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-info h2 {
+            font-size: 26px;
+            color: #333;
+        }
+
+        .contact-info p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        #map {
+            width: 100%;
+            height: 400px;
+            margin-top: 30px;
+        }
+
+        .quotes {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 18px;
+            font-style: italic;
+            color: #1e90ff;
+        }
+
+        /* Plan Card Styling */
+        .cards-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            width: 280px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            padding: 20px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            color: #1e90ff;
+            font-size: 22px;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #777;
+        }
+
+        /* Modal Popup Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 70%;
+            max-width: 800px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            color: #1e90ff;
+        }
+
+        .modal-body p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+        }
+        footer {
+    background-image: url('https://example.com/insurance-background.jpg'); /* Replace this with an actual image URL */
+    background-size: cover;
+    background-position: center;
+    padding: 40px 0;
+    color:linear-gradient(45deg, #1e90ff, #ffd700);
+    font-family: 'Roboto', sans-serif;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.footer-info, .footer-social, .footer-quote {
+    flex: 1;
+    padding: 10px;
+}
+
+.footer-info h3, .footer-social h3, .footer-quote h3 {
+    color: linear-gradient(45deg, #1e90ff, #ffd700);
+    background: linear-gradient(45deg, #1e90ff, #ffd700);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.footer-info p, .footer-social p, .footer-quote p {
+    font-size: 16px;
+}
+
+.footer-social p a {
+    color: rgba(10, 10, 9, 0.753);
+    text-decoration: none;
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+.footer-social p a:hover {
+    color: #1e90ff;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* Slight dark overlay */
+    padding: 10px 0;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-weight: 300;
+}
+
+/* Make sure footer content is responsive */
+@media screen and (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-info, .footer-social, .footer-quote {
+        padding: 20px 0;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <img src="logo.png" alt="LIC Logo" class="logo">
+        <h1>JITENDRA SINGH HADA</h1>
+        <h3>Insurance & Investment Advisor</h3>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="container">
+
+        <!-- Contact Information -->
+        <div class="contact-info">
+           
+            <p><strong>Agent Code:</strong> 4326154 | <strong>Branch:</strong> Jodhpur III</p>
+            <p><strong>Office:</strong> Life Insurance Corporation of India, Chopasani Housing Board, Sector 12, Jodhpur</p>
+        </div>
+
+        <!-- Inspirational Quotes Section -->
+        <div class="quotes">
+            <p>"Insurance is not just about protecting your future. It's about securing peace of mind today."</p>
+            <p>"A smart investment in insurance today can lead to a more secure tomorrow."</p>
+        </div>
+        <div class="contact-info">
+            
+            <h2><b> LIC Plans</b></h2>
+        </div>
+        <!-- LIC Plan Cards -->
+        <div class="cards-container">
+            
+            <!-- Plan 1 -->
+            <div class="card" onclick="openModal('plan1')">
+                <h3>LIC Jeevan Anand</h3>
+                <p>Endowment & Risk Cover</p>
+            </div>
+
+            <!-- Plan 2 -->
+            <div class="card" onclick="openModal('plan2')">
+                <h3>LIC Jeevan Akshay</h3>
+                <p>Immediate Annuity</p>
+            </div>
+
+            <!-- Plan 3 -->
+            <div class="card" onclick="openModal('plan3')">
+                <h3>LIC New Endowment Plan</h3>
+                <p>Endowment Plan</p>
+            </div>
+
+            <!-- Plan 4 -->
+            <div class="card" onclick="openModal('plan4')">
+                <h3>LIC Jeevan Labh</h3>
+                <p>Endowment & Risk Cover</p>
+            </div>
+
+            <!-- Plan 5 -->
+            <div class="card" onclick="openModal('plan5')">
+                <h3>LIC Jeevan Saral</h3>
+                <p>Life Cover & Savings</p>
+            </div>
+
+            <!-- Plan 6 -->
+            <div class="card" onclick="openModal('plan6')">
+                <h3>LIC Jeevan Umang</h3>
+                <p>Endowment & Risk Cover</p>
+            </div>
+
+            <!-- Plan 7 -->
+            <div class="card" onclick="openModal('plan7')">
+                <h3>LIC New Jeevan Mangal</h3>
+                <p>Risk Cover with Endowment</p>
+            </div>
+
+            <!-- Plan 8 -->
+            <div class="card" onclick="openModal('plan8')">
+                <h3>LIC Anmol Jeevan</h3>
+                <p>Pure Term Plan</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Google Maps -->
+    <div id="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3472.037036567212!2d73.05026991434661!3d26.308526283426636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396c25d5e4f20527%3A0x300fda705e71b6f9!2sChopasani%20Housing%20Board%2C%20Sector%2012%2C%20Jodhpur%2C%20Rajasthan%20434207!5e0!3m2!1sen!2sin!4v1675082153409!5m2!1sen!2sin" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <!-- Modal Popup -->
+    <div id="planModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+            </div>
+            <div class="modal-body">
+                <p id="modalPurpose"></p>
+                <p id="modalBenefits"></p>
+                <p id="modalEligibility"></p>
+                <p id="modalOtherDetails"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to open the modal and load content
+        function openModal(plan) {
+            const modal = document.getElementById("planModal");
+            const title = document.getElementById("modalTitle");
+            const purpose = document.getElementById("modalPurpose");
+            const benefits = document.getElementById("modalBenefits");
+            const eligibility = document.getElementById("modalEligibility");
+            const otherDetails = document.getElementById("modalOtherDetails");
+
+            // Set the content based on the plan clicked
+            if (plan === 'plan1') {
+                title.textContent = 'LIC Jeevan Anand';
+                purpose.textContent = 'Purpose: Combination of Endowment & Risk Cover.';
+                benefits.textContent = 'Benefits: Provides risk cover along with bonus facility.';
+                eligibility.textContent = 'Eligibility: Available for ages 18 to 50.';
+                otherDetails.textContent = 'Additional Details: Ideal for those looking for both risk cover and savings.';
+            } else if (plan === 'plan2') {
+                title.textContent = 'LIC Jeevan Akshay';
+                purpose.textContent = 'Purpose: Immediate Annuity.';
+                benefits.textContent = 'Benefits: Provides regular income after investment.';
+                eligibility.textContent = 'Eligibility: Available for ages 30 to 85.';
+                otherDetails.textContent = 'Additional Details: One-time premium payment option for lifelong income.';
+            } else if (plan === 'plan3') {
+                title.textContent = 'LIC New Endowment Plan';
+                purpose.textContent = 'Purpose: Endowment Plan with risk coverage.';
+                benefits.textContent = 'Benefits: Participates in the corporation\'s Group Fund and provides risk coverage.';
+                eligibility.textContent = 'Eligibility: Available for ages 18 to 60.';
+                otherDetails.textContent = 'Additional Details: Offers bonuses and financial protection for family.';
+            } else if (plan === 'plan4') {
+                title.textContent = 'LIC Jeevan Labh';
+                purpose.textContent = 'Purpose: Combination of Endowment & Risk Cover.';
+                benefits.textContent = 'Benefits: Provides financial support in case of death, along with bonus facility.';
+                eligibility.textContent = 'Eligibility: Available for ages 20 to 60.';
+                otherDetails.textContent = 'Additional Details: Includes accident benefits rider for added coverage.';
+            } else if (plan === 'plan5') {
+                title.textContent = 'LIC Jeevan Saral';
+                purpose.textContent = 'Purpose: Life Cover & Savings.';
+                benefits.textContent = 'Benefits: Provides both risk cover and savings.';
+                eligibility.textContent = 'Eligibility: Available for ages 20 to 60.';
+                otherDetails.textContent = 'Additional Details: Simple premium payment option.';
+            } else if (plan === 'plan6') {
+                title.textContent = 'LIC Jeevan Umang';
+                purpose.textContent = 'Purpose: Endowment & Risk Cover.';
+                benefits.textContent = 'Benefits: Life cover with bonus facility, along with survival benefits.';
+                eligibility.textContent = 'Eligibility: Available for ages 90 days to 55 years.';
+                otherDetails.textContent = 'Additional Details: Provides post-retirement income.';
+            } else if (plan === 'plan7') {
+                title.textContent = 'LIC New Jeevan Mangal';
+                purpose.textContent = 'Purpose: Risk Cover with Endowment.';
+                benefits.textContent = 'Benefits: Provides risk cover with additional endowment feature.';
+                eligibility.textContent = 'Eligibility: Available for ages 18 to 60.';
+                otherDetails.textContent = 'Additional Details: Additional riders available.';
+            } else if (plan === 'plan8') {
+                title.textContent = 'LIC Anmol Jeevan';
+                purpose.textContent = 'Purpose: Pure Term Plan.';
+                benefits.textContent = 'Benefits: Offers a pure term life cover.';
+                eligibility.textContent = 'Eligibility: Available for ages 18 to 60.';
+                otherDetails.textContent = 'Additional Details: Lower premiums for greater coverage.';
+            }
+
+            // Show the modal
+            modal.style.display = "block";
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById("planModal");
+            modal.style.display = "none";
+        }
+
+        // Close the modal if clicked outside
+        window.onclick = function(event) {
+            const modal = document.getElementById("planModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>Contact Us</h3>
+                <p><strong>Phone:</strong> +91 8766980390</p>
+                <p><strong>Email:</strong> haadajitendrasingh@gmail.com</p>
+                <p><strong>Office:</strong> LIC Branch, Chopasani Housing Board, Sector 12, Jodhpur</p>
+            </div>
+    
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <p><a href="https://www.facebook.com/yourpage" target="_blank">Facebook</a></p>
+                <p><a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn</a></p>
+                <!-- Add more social media links if necessary -->
+            </div>
+    
+            <div class="footer-quote">
+                <h3>Quote of the Day</h3>
+                <p>"The best time to plant a tree was 20 years ago. The second best time is now. - Invest in your future today!"</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>❤️ Make in India for India ❤️ | Designed by Jitendra Singh Hada</p>
+        </div>
+    </footer>
+    
+</body>
+</html>
